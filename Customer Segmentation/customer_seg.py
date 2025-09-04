@@ -1,6 +1,5 @@
-# Micro-Steps for Task 2: Customer Segmentation
+# Task 2: Customer Segmentation
 
-# Load dataset → Read Mall_Customers.csv into a dataframe
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
