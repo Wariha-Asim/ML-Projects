@@ -1,109 +1,96 @@
-## 🛍 Customer Segmentation using K-Means Clustering
+# 🛍 Customer Segmentation using K-Means Clustering
 
-This project applies K-Means clustering to segment mall customers based on their Annual Income and Spending Score. By identifying customer groups, businesses can design better marketing strategies and improve decision-making.
+This project applies **K-Means clustering** to segment mall customers based on their **Annual Income** and **Spending Score**.  
+It contains **two versions**:
+
+1. **Streamlit Dashboard** → `customer_seg_streamlit.py` (interactive web app)  
+2. **Console / Python Script** → `customer_seg.py` (runs in terminal with matplotlib plots)  
+
+Segmentation helps businesses design better marketing strategies and target customers effectively.
+
+---
+
+## 🔹 Features
+
+- Segment customers into clusters based on income and spending behavior
+- Determine the **optimal number of clusters** using Silhouette Score
+- Visualize clusters and their centers
+- Analyze each cluster:
+  - Average income
+  - Average spending score
+  - Human-readable labels: Premium, Budget, or Average Customers
+
+---
 
 ## 📂 Dataset
 
-The dataset used is Mall_Customers.csv, which contains the following columns:
+- Dataset file: `Mall_Customers.csv`
+- Columns:
+  - `CustomerID` → Unique customer identifier
+  - `Gender` → Male / Female
+  - `Age` → Customer age
+  - `Annual Income (k$)` → Annual income in thousands of dollars
+  - `Spending Score (1-100)` → Spending behavior score assigned by the mall
 
-CustomerID → Unique customer identifier
+---
 
-Gender → Male / Female
+## ⚙️ Steps & Features
 
-Age → Age of the customer
+1. **Data Loading & Exploration**
+2. **Feature Selection** → `Annual Income` and `Spending Score`
+3. **Data Visualization (Before Clustering)** → Scatter plot
+4. **Feature Scaling** → StandardScaler
+5. **Optimal Cluster Selection** → Silhouette Score for `k=2` to `10`
+6. **K-Means Clustering** → Train with optimal `k` (default 3)
+7. **Cluster Analysis** → Categorize clusters: Premium, Budget, Average
 
-Annual Income (k$) → Annual income in thousands of dollars
-
-Spending Score (1-100) → Spending behavior score assigned by the mall
-
-## ⚙️ Features:
-1. Data Loading & Exploration
-
-Loaded the dataset using Pandas
-
-Previewed data with .head() to understand structure
-
-2. Feature Selection
-
-Selected Annual Income and Spending Score for clustering
-
-3. Data Visualization (Before Clustering)
-
-Scatter plot of income vs. spending score
-
-4. Feature Scaling
-
-Standardized features using StandardScaler for better clustering performance
-
-5. Optimal Cluster Selection
-
-Used Silhouette Score to test clusters k=2 to 10
-
-Selected k=3 as the optimal number of clusters
-
-6. K-Means Clustering
-
-Trained K-Means with optimal k=3
-
-Visualized results with distinct cluster colors and labeled cluster centers
-
-7. Cluster Analysis
-
-For each cluster:
-
-Calculated average income and average spending score
-
-Categorized clusters as:
-
-Premium Customers → High income, high spending
-
-Budget Customers → Low income, low spending
-
-Average Customers → Middle income/spending
+---
 
 ## 📊 Visualizations
 
-Scatter Plot (Before Clustering) → Shows raw data distribution
+- Scatter Plot Before Clustering  
+- Scatter Plot After Clustering  
+- Silhouette Score Bar Chart (Streamlit version only)  
 
-Scatter Plot (After Clustering) → Shows segmented groups with cluster centers
+---
 
 ## 🧾 Results
 
-Optimal number of clusters: 3
+- Optimal clusters: **3**
+- Cluster insights:
+  - **Premium Customers** → High income, high spending
+  - **Budget Customers** → Low income, low spending
+  - **Average Customers** → Middle income/spending
 
-Identified distinct customer groups with meaningful insights
-
-Example outputs:
-
-Premium Customers → Target with luxury services
-
-Budget Customers → Offer discounts & budget deals
-
-Average Customers → Retain with balanced offers
+---
 
 ## 🛠️ Technologies Used
 
-Python 3.x
+- Python 3.x
+- Pandas → Data manipulation
+- Matplotlib → Visualization
+- Scikit-learn → K-Means clustering, StandardScaler, Silhouette Score
+- Streamlit → Interactive dashboard (`customer_seg_streamlit.py`)
 
-Pandas → Data manipulation
-
-Matplotlib → Data visualization
-
-Scikit-learn → K-Means clustering, scaling, silhouette score
+---
 
 ## 🚀 How to Run
 
-Clone this repository:
-
-git clone https://github.com/Wariha-Asim/Customer Segmentation.git
-cd customerseg.py
+### 1️⃣ Streamlit Version (`customer_seg_streamlit.py`)
 
 
-## Install dependencies:
+git clone https://github.com/Wariha-Asim/ML-Projects.git
+cd "ML-Projects/Customer Segmentation"
 
+## Console / Python Script Version (customer_seg.py)
+git clone https://github.com/Wariha-Asim/ML-Projects.git
+cd "ML-Projects/Customer Segmentation"
 pip install pandas matplotlib scikit-learn
+python customer_seg.py
 
+## Runs in terminal / console
 
-Run the script:
+Displays cluster analysis and shows scatter plots before and after clustering
 
-python customer_segmentation.py
+pip install pandas matplotlib scikit-learn streamlit
+streamlit run customer_seg_streamlit.py
