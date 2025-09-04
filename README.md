@@ -1,4 +1,4 @@
-# Machine Learning Projects: Loan Approval, Student Performance & Other Tasks
+# Machine Learning Projects
 
 This repository contains my completed machine learning projects, focusing on applying supervised and unsupervised techniques to real-world datasets.
 
