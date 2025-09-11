@@ -48,7 +48,7 @@ python Email Spam Classification using SVM.py
 
 Confusion Matrix Visualization:  
 
-![Confusion Matrix](confusion_matrix.png)
+![Confusion Matrix](confusion_matrix.PNG)
 
 
 
