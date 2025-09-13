@@ -45,7 +45,7 @@ print("Explained Variance Ratio:", pca.explained_variance_ratio_)
 
 #PCA visualization
 X_all_pca = np.vstack((X_train_pca, X_test_pca))
-y_all = np.hstack((y_train, y_test))
+y_all = np.hstack((y_train, y_test))  # colors ke liye labels
 plt.figure(figsize=(8,6))
 colors = ListedColormap(['purple', 'lightgreen'])
 plt.scatter(X_all_pca[:,0], X_all_pca[:,1], c=y_all, cmap=colors, s=50)
@@ -55,6 +55,7 @@ plt.title("Email Spam PCA Visualization")
 plt.colorbar(label="0 = Not Spam, 1 = Spam")
 plt.grid(True)
 plt.show()
+
 
 # ================================
 # 5. Hyperparameter Tuning using RandomizedSearchCV
