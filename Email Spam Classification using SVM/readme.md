@@ -10,9 +10,8 @@ The goal is to classify emails as **Spam** or **Not Spam** based on selected fea
 - Support Vector Machine (SVM) with linear & RBF kernels  
 - Hyperparameter tuning using `RandomizedSearchCV`  
 - Model evaluation with Accuracy, Classification Report, and Confusion Matrix  
-- Visualization of Confusion Matrix  
-
----
+- Visualization of Confusion Matrix
+- Visualization of: PCA plot (spam vs non-spam distribution in 2D),Confusion Matrix
 
 ## 📂 Dataset
 The dataset `spam_detection_dataset.csv` contains the following features:  
@@ -45,6 +44,11 @@ python Email Spam Classification using SVM.py
 - **Accuracy Score**  
 - **Classification Report**  
 - **Confusion Matrix**
+- 
+## PCA Visualization:
+
+Shows how spam vs not spam emails are distributed in reduced 2D feature space.
+![PCA ](PCA.PNG)
 
 ## Confusion Matrix Visualization:  
 
@@ -85,6 +89,4 @@ weighted avg       0.95      0.95      0.95       160
 ├── Email Spam Classification using SVM.py  # Main code
 ├── confusion_matrix.png          # Confusion Matrix image
 └── README.md                     # Documentation
-
-Developed by **Waareha Asim** 👩‍💻  
 
