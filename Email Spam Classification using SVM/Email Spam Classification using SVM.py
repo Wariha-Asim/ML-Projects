@@ -5,6 +5,9 @@ from sklearn.metrics import accuracy_score, confusion_matrix, classification_rep
 from sklearn.svm import SVC
 from sklearn.model_selection import train_test_split, RandomizedSearchCV
 from scipy.stats import uniform
+from sklearn.decomposition import PCA
+import numpy as np
+from matplotlib.colors import ListedColormap
 
 # ================================
 # 1. Load Dataset
@@ -31,6 +34,27 @@ print(X_test.shape)
 scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
+
+pca=PCA(n_components=2)
+X_train_pca = pca.fit_transform(X_train_scaled)
+X_test_pca = pca.transform(X_test_scaled)
+
+#PCA Implementation
+print("PCA results: ",X_train_pca)
+print("Explained Variance Ratio:", pca.explained_variance_ratio_)
+
+#PCA visualization
+X_all_pca = np.vstack((X_train_pca, X_test_pca))
+y_all = np.hstack((y_train, y_test))
+plt.figure(figsize=(8,6))
+colors = ListedColormap(['purple', 'lightgreen'])
+plt.scatter(X_all_pca[:,0], X_all_pca[:,1], c=y_all, cmap=colors, s=50)
+plt.xlabel("PC1")
+plt.ylabel("PC2")
+plt.title("Email Spam PCA Visualization")
+plt.colorbar(label="0 = Not Spam, 1 = Spam")
+plt.grid(True)
+plt.show()
 
 # ================================
 # 5. Hyperparameter Tuning using RandomizedSearchCV
