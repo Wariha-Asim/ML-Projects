@@ -1,4 +1,8 @@
+# Fake News Classification Project (Clean .py version)
+
+# ==============================
 # Importing Libraries
+# ==============================
 import pandas as pd
 import numpy as np
 
@@ -83,7 +87,7 @@ nb_pred = nb_model.predict(X_test)
 # ==============================
 # Naive Bayes
 # ==============================
-print("\n========== 🟡 Naive Bayes Model Prediction =================")
+print("\n========== Naive Bayes Model Prediction =================")
 nb_model = MultinomialNB()
 nb_model.fit(X_train, y_train)
 nb_pred = nb_model.predict(X_test)
@@ -106,7 +110,7 @@ print("Confusion Matrix:\n", nb_cm)
 # ==============================
 # Logistic Regression
 # ==============================
-print("\n========== 🔵 Logistic Regression Model Prediction =================")
+print("\n========== Logistic Regression Model Prediction =================")
 lr_model = LogisticRegression()
 lr_model.fit(X_train, y_train)
 lr_pred = lr_model.predict(X_test)
@@ -129,7 +133,7 @@ print("Confusion Matrix:\n", lr_cm)
 # ==============================
 # Random Forest
 # ==============================
-print("\n========== 🟢 Random Forest Model Prediction =================")
+print("\n========== Random Forest Model Prediction =================")
 rf_model = RandomForestClassifier()
 rf_model.fit(X_train, y_train)
 rf_pred = rf_model.predict(X_test)
