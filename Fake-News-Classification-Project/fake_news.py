@@ -1,8 +1,4 @@
-# Fake News Classification Project (Clean .py version)
-
-# ==============================
 # Importing Libraries
-# ==============================
 import pandas as pd
 import numpy as np
 
@@ -36,8 +32,8 @@ from wordcloud import WordCloud
 # ==============================
 # Load Data
 # ==============================
-df_fake_news = pd.read_csv('Fake.csv')
-df_real_news = pd.read_csv('True.csv')
+df_fake_news = pd.read_csv(r'C:\Users\AR FAST\Documents\Machine Learning mini projects\Fake News Detection Project\Fake.csv')
+df_real_news = pd.read_csv(r'C:\Users\AR FAST\Documents\Machine Learning mini projects\Fake News Detection Project\True.csv')
 
 # Add labels
 df_fake_news['label'] = 0
@@ -45,6 +41,7 @@ df_real_news['label'] = 1
 
 # Combine datasets
 df = pd.concat([df_fake_news, df_real_news], axis=0)
+print(df.head(5))
 df = df.sample(frac=1).reset_index(drop=True)
 
 # ==============================
@@ -83,6 +80,14 @@ nb_model = MultinomialNB()
 nb_model.fit(X_train, y_train)
 nb_pred = nb_model.predict(X_test)
 
+# ==============================
+# Naive Bayes
+# ==============================
+print("\n========== 🟡 Naive Bayes Model Prediction =================")
+nb_model = MultinomialNB()
+nb_model.fit(X_train, y_train)
+nb_pred = nb_model.predict(X_test)
+
 nb_acc = accuracy_score(y_test, nb_pred)
 nb_pre = precision_score(y_test, nb_pred)
 nb_rec = recall_score(y_test, nb_pred)
@@ -90,9 +95,18 @@ nb_f1 = f1_score(y_test, nb_pred)
 nb_cm = confusion_matrix(y_test, nb_pred)
 nb_roc = roc_auc_score(y_test, nb_pred)
 
+print(f"Accuracy: {nb_acc:.4f}")
+print(f"Precision: {nb_pre:.4f}")
+print(f"Recall: {nb_rec:.4f}")
+print(f"F1 Score: {nb_f1:.4f}")
+print(f"ROC AUC: {nb_roc:.4f}")
+print("Confusion Matrix:\n", nb_cm)
+
+
 # ==============================
 # Logistic Regression
 # ==============================
+print("\n========== 🔵 Logistic Regression Model Prediction =================")
 lr_model = LogisticRegression()
 lr_model.fit(X_train, y_train)
 lr_pred = lr_model.predict(X_test)
@@ -104,9 +118,18 @@ lr_f1 = f1_score(y_test, lr_pred)
 lr_cm = confusion_matrix(y_test, lr_pred)
 lr_roc = roc_auc_score(y_test, lr_pred)
 
+print(f"Accuracy: {lr_acc:.4f}")
+print(f"Precision: {lr_pre:.4f}")
+print(f"Recall: {lr_rec:.4f}")
+print(f"F1 Score: {lr_f1:.4f}")
+print(f"ROC AUC: {lr_roc:.4f}")
+print("Confusion Matrix:\n", lr_cm)
+
+
 # ==============================
 # Random Forest
 # ==============================
+print("\n========== 🟢 Random Forest Model Prediction =================")
 rf_model = RandomForestClassifier()
 rf_model.fit(X_train, y_train)
 rf_pred = rf_model.predict(X_test)
@@ -117,6 +140,13 @@ rf_rec = recall_score(y_test, rf_pred)
 rf_f1 = f1_score(y_test, rf_pred)
 rf_cm = confusion_matrix(y_test, rf_pred)
 rf_roc = roc_auc_score(y_test, rf_pred)
+
+print(f"Accuracy: {rf_acc:.4f}")
+print(f"Precision: {rf_pre:.4f}")
+print(f"Recall: {rf_rec:.4f}")
+print(f"F1 Score: {rf_f1:.4f}")
+print(f"ROC AUC: {rf_roc:.4f}")
+print("Confusion Matrix:\n", rf_cm)
 
 # ==============================
 # Model Comparison
