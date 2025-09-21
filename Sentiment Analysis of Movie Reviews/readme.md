@@ -72,9 +72,9 @@ The pipeline includes **data preprocessing, feature extraction, model training, 
 - **SVM** → Highest overall performance on sampled data  
 
 ✅ **Selected Best Model: Support Vector Machine (SVM)**  
-- Accuracy: ~**86%**  
+- Accuracy: ~**89%**  
 - Precision/Recall: High & consistent  
-- ROC-AUC: Strong classification power  
+- ROC-AUC: ~**90%** Strong classification power  
 
 ---
 
