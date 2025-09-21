@@ -119,23 +119,36 @@ print(f"ROC-AUC: {lr_roc:.4f}")
 # ==============================
 # Support Vector Machine Model
 # ==============================
-print("\n========== Support Vector Machine Model Prediction =================")
-df_sampled = df.sample(n=10000, random_state=42, replace=False)
+# STRATEGIC SAMPLING: Take a smaller representative sample 
+sample_size = 10000  
+df_sampled = df.sample(n=sample_size, random_state=42, replace=False)
+
+# Use this sampled dataframe for ALL models from now on
 X_sampled = df_sampled['review']
 y_sampled = df_sampled['sentiment']
 
+print(f"Working with a manageable sample of {sample_size} reviews for model comparison.")
+
+# Convert text into numerical features
 vectorizer = TfidfVectorizer(max_features=5000)
 X_counts = vectorizer.fit_transform(X_sampled)
 
+# Train, test and split data
 X_train, X_test, y_train, y_test = train_test_split(X_counts, y_sampled, test_size=0.3, random_state=42)
 
-svm = SVC(random_state=42)
+# SVM model
+
+svm = SVC(random_state=42)  
 svm.fit(X_train, y_train)
 svm_pred = svm.predict(X_test)
 
-print("First 10 Predictions:", svm_pred[:10])
+
+# Predictions
+print("===========Model Support Vector Machine=============")
+print("First 10 predictions: ", svm_pred[:10])
 print("Actual first 10 labels:", y_test.values[:10])
 
+# Metrics evaluation
 svm_acc = accuracy_score(y_test, svm_pred)
 svm_pre = precision_score(y_test, svm_pred)
 svm_rec = recall_score(y_test, svm_pred)
@@ -143,12 +156,20 @@ svm_f1 = f1_score(y_test, svm_pred)
 svm_cm = confusion_matrix(y_test, svm_pred)
 svm_roc = roc_auc_score(y_test, svm_pred)
 
+print("==========================================")
+print("============Model Performance=============")
 print(f"Accuracy: {svm_acc:.4f}")
 print(f"Precision: {svm_pre:.4f}")
 print(f"Recall: {svm_rec:.4f}")
 print(f"F1-Score: {svm_f1:.4f}")
 print("Confusion Matrix:\n", svm_cm)
 print(f"ROC-AUC: {svm_roc:.4f}")
+
+# Additional useful info
+print(f"\nAdditional Info:")
+print(f"Training samples: {X_train.shape[0]}")
+print(f"Testing samples: {X_test.shape[0]}")
+print(f"Number of features: {X_train.shape[1]}")
 
 # ==============================
 # Model Comparison
@@ -176,12 +197,12 @@ print(results_sorted.to_string())
 print("\n🏆 Best Model Selected:", results_sorted.iloc[0]["Model"])
 
 # ==============================
-# Confusion Matrix for Best Model (Logistic Regression)
+# Confusion Matrix for Best Model 
 # ==============================
 svm_cm_percent = svm_cm.astype("float") / svm_cm.sum() * 100
 plt.figure(figsize=(7, 8))
-plt.imshow(svm_cm_percent, interpolation="nearest", cmap="Blues")
-plt.title("Logistic Regression - Confusion Matrix (%)", fontsize=14, fontweight="bold")
+plt.imshow(svm_cm_percent, interpolation="nearest", cmap="ocean")
+plt.title("SVM - Confusion Matrix (%)", fontsize=14, fontweight="bold")
 plt.colorbar(label="Percentage")
 
 plt.xticks([0, 1], ["Predicted Negative (0)", "Predicted Positive (1)"], fontsize=10)
