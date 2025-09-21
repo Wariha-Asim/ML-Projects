@@ -27,7 +27,7 @@ nltk.download('stopwords')
 # ==============================
 # Load Dataset
 # ==============================
-df = pd.read_csv('IMDB Dataset.csv')
+df = pd.read_csv(r'C:\Users\AR FAST\Documents\Machine Learning mini projects\Sentiment Analysis of Movie Reviews\IMDB Dataset.csv')
 
 # Encode sentiment (0 = negative, 1 = positive)
 le = LabelEncoder()
@@ -178,9 +178,9 @@ print("\n🏆 Best Model Selected:", results_sorted.iloc[0]["Model"])
 # ==============================
 # Confusion Matrix for Best Model (Logistic Regression)
 # ==============================
-lr_cm_percent = lr_cm.astype("float") / lr_cm.sum() * 100
+svm_cm_percent = svm_cm.astype("float") / svm_cm.sum() * 100
 plt.figure(figsize=(7, 8))
-plt.imshow(lr_cm_percent, interpolation="nearest", cmap="Blues")
+plt.imshow(svm_cm_percent, interpolation="nearest", cmap="Blues")
 plt.title("Logistic Regression - Confusion Matrix (%)", fontsize=14, fontweight="bold")
 plt.colorbar(label="Percentage")
 
@@ -189,9 +189,9 @@ plt.yticks([0, 1], ["Actual Negative (0)", "Actual Positive (1)"], fontsize=10)
 plt.ylabel("Actual Class", fontsize=12)
 plt.xlabel("Predicted Class", fontsize=12)
 
-for i in range(lr_cm_percent.shape[0]):
-    for j in range(lr_cm_percent.shape[1]):
-        plt.text(j, i, f"{lr_cm_percent[i, j]:.2f}%", 
+for i in range(svm_cm_percent.shape[0]):
+    for j in range(svm_cm_percent.shape[1]):
+        plt.text(j, i, f"{svm_cm_percent[i, j]:.2f}%", 
                  ha="center", va="center", color="black", fontsize=11, fontweight="bold")
 
 plt.tight_layout()
@@ -223,16 +223,52 @@ plt.show()
 # ==============================
 # Histogram – Review Length Distribution
 # ==============================
-df['review_length'] = df['review'].apply(lambda x: len(x.split()))
-pos_lengths = df[df['sentiment'] == 1]['review_length']
-neg_lengths = df[df['sentiment'] == 0]['review_length']
 
-plt.figure(figsize=(12, 5))
-plt.hist(pos_lengths, bins=20, color='red', alpha=0.6, edgecolor='black', label="Positive Reviews")
-plt.hist(neg_lengths, bins=20, color='purple', alpha=0.6, edgecolor='black', label="Negative Reviews")
-plt.title('Review Length Distribution (Positive vs Negative)')
+# Calculate review lengths
+df['review_length'] = df['review'].apply(lambda x: len(x.split())) #apply() lets you run a function on each element of a column
+#for each row of x in text column split the string into words and count them.
+
+# Separate lengths by sentiment
+pos_lengths = df[df['sentiment']==1]['review_length']
+neg_lengths = df[df['sentiment']==0]['review_length']
+
+# Plot side-by-side histograms
+plt.figure(figsize=(12,5))
+
+plt.subplot(1, 2, 1)
+plt.hist(pos_lengths, bins=20, color='red', alpha=0.6, edgecolor='black')
+plt.title('Positive Reviews Length')
 plt.xlabel('Number of Words')
 plt.ylabel('Frequency')
-plt.legend()
+
+plt.subplot(1, 2, 2)
+plt.hist(neg_lengths, bins=20, color='purple', alpha=0.6, edgecolor='black')
+plt.title('Negative Reviews Length')
+plt.xlabel('Number of Words')
+plt.ylabel('Frequency')
+
 plt.tight_layout()
+plt.show()
+
+
+## Distribution of Review Length vs Word Count Categories
+#Bar Chart
+# Review length categories
+df['review_length'] = df['review'].apply(lambda x: len(x.split()))
+df['review_type'] = pd.cut(df['review_length'],
+                           bins=[0, 50, 150, float('inf')],
+                           labels=['Short', 'Medium', 'Long'])
+
+# Count values for each category
+counts = df['review_type'].value_counts().reindex(['Short', 'Medium', 'Long'])
+
+# Bar chart with border
+plt.figure(figsize=(8,6))
+bars = plt.bar(counts.index, counts.values, 
+               color=['red', 'yellow', 'green'], 
+               edgecolor='black', linewidth=1.5)
+
+plt.title('Distribution of Short, Medium, and Long Reviews')
+plt.xlabel('Review Type')
+plt.ylabel('Count')
 plt.show()
